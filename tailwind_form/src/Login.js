@@ -1,9 +1,11 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState} from 'react';
 import axios from 'axios';
 import p7 from "./Assets/p7.jpg"
 import gg from "./Assets/google.png";
 import { NavLink } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -11,7 +13,9 @@ const Login = () => {
     const[data,setData] = useState({
         email:"",password:"" 
     });
+    const[disable, setDisable]=useState('typing');
     
+    const navigate =useNavigate();
 
     let name,value;
 
@@ -23,11 +27,46 @@ const Login = () => {
         setData({...data,[name]:value});
     }
 
+
+  
+
+  //   const handleSubmit = async()=>{
+  //     try{
+  //         const result = await axios.post('http://localhost:8083/login',data);
+  //         setData(result.data);
+          
+  //         Swal.fire({
+  //           title: "Login Success",  
+  //           icon: "success",
+  //         })
+  //     } catch (err) {
+        
+  //       Swal.fire({
+  //         title: "No Record",  
+  //         icon: "error",
+  //       })
+  //     }
+  // }
+
+
     const handleSubmit =(e)=>{
         e.preventDefault();
         axios.post('http://localhost:8083/login',data)
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
+        .then(res => {
+          console.log(res)
+          if(res.data  === "Login Success"){
+            navigate('/home')
+          } else{
+            Swal.fire({
+              title: "No Record",  
+              icon: "error",
+            });
+          }
+       
+         })
+         .catch(err => console.log(err));
+         setDisable('submitted');
+          
     }
 
 
@@ -66,8 +105,12 @@ const Login = () => {
             <span className="font-bold text-md">Forgot password</span>
           </div>
           <button onClick={handleSubmit}
-            className="w-full bg-black text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300"
-          ><NavLink to="/home">Sign in</NavLink> </button>
+            className="w-full bg-black text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border
+             hover:border-gray-300  disabled:bg-gray-300 disabled:text-black "
+            disabled={data.email.length===0 || 
+              data.password.length===0 ||                             
+              disable==='submitted'}
+          >Sign in </button>
           <button
             className="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-black hover:text-white"
           >
@@ -76,7 +119,7 @@ const Login = () => {
           </button>
           <div className="text-center text-gray-400">
             Dont'have an account?
-            <span className="font-bold text-black">Sign up for free</span>
+            <span className="font-bold text-black"><NavLink to="/signup">Sign up for free</NavLink></span>
           </div>
         </div>
         {/* <!-- right side --> */}

@@ -1,7 +1,11 @@
+
 const express = require ("express");
 const app= express();
 const  mysql = require('mysql');
 const cors = require('cors');
+// var popup = require('popups');
+// let alert = require('alert'); 
+const { NavLink } = require("react-router-dom");
 
 app.use(cors());
 app.use(express.json());
@@ -37,8 +41,17 @@ app.post("/login",(req,res)=>{
         }
         if(result.length > 0){
             return res.json("Login Success")
+            // popup.alert(
+            //      'Hello!'
+            // );
+            // alert("messages")
+
         }else{
             return res.json("No Record")
+            // alert("messages")
+            // popup.alert(
+            //     'Hello!'
+            // );
         }
     })
 })
