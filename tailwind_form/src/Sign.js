@@ -73,15 +73,15 @@ const handleSubmit =(e)=>{
               By clicking Register , you agree to our <a href="#2" className="text-purple-500 font-semibold">Terms of Use</a> &  <a href="#1" className="text-purple-500 font-semibold">Privacy Policy</a> 
               </span>
             </div>
-            <div className="mt-5">
+            <div className="mt-5 mb-5">
               <button className="w-full bg-black py-3 text-center text-white rounded-md disabled:bg-gray-300 disabled:text-black"
                onClick={handleSubmit}  disabled={content.email.length===0 || 
                 content.password.length===0 || content.firstname.length===0 ||content.surname.length===0 || content.confirmpassword.length===0 ||                         
                 disable==='submitted'} >Register Now</button>
             </div>
-            <div className="text-center text-gray-400">
+            <div className="text-center text-gray-400 ">
            Already have an account?
-           <span className='font-bold text-black'><Link to="/">Login</Link></span>
+           <span className='font-bold text-black ml-2 hover:underline' ><Link to="/">Login</Link></span>
            </div>
           </form>
         </div>

@@ -119,7 +119,7 @@ const Login = () => {
           </button>
           <div className="text-center text-gray-400">
             Dont'have an account?
-            <span className="font-bold text-black"><NavLink to="/signup">Sign up for free</NavLink></span>
+            <span className="font-bold text-black ml-2 hover:underline"><NavLink to="/signup">Sign up for free</NavLink></span>
           </div>
         </div>
         {/* <!-- right side --> */}
